@@ -16,8 +16,8 @@ v0_initial = 2e-3  # m/sec
 def electron_location_tou(x, y, v0, E1, E2, t):
     """This function give a new location of the particle based on time, current location, size of velocity v, the electric field and
     the size of the time step taken """
-    vx = rand.choice([1, -1]) * rand.uniform(0.0, v0)  # randomize the velocity in x axi based on v0
-    vy = rand.choice((1, -1))[0] * (v0 ** 2 - vx ** 2) ** 0.5  # calculate the velocity in the y axi based on v0 and
+    vx = rand.choice((1, -1)) * rand.uniform(0.0, v0)  # randomize the velocity in x axi based on v0
+    vy = rand.choice((1, -1)) * (v0 ** 2 - vx ** 2) ** 0.5  # calculate the velocity in the y axi based on v0 and
     # the velocity at the x axi
     e_speed_initial1 = vx
     e_speed_initial2 = vy
@@ -76,7 +76,7 @@ v_drift = x_end / t_end  # Calculation of drift speed
 print(f"The drift speed is {v_drift} m/s")
 v_drift_n = []
 for i in range(10000):  # Loop of 10k different drift speeds in order to sensitivity to change in size of speed changes
-    v0_new = v0_initial + rand.choice([1, -1]) * rand.uniform(0.0, 1)
+    v0_new = v0_initial + rand.choice((1, -1)) * rand.uniform(0.1, 1)
     creat_xy_vectors(v0_new, 100)
     x_end = x[-1]
     t_end = t[-1]
@@ -93,14 +93,14 @@ print(
 x, y, t = creat_xy_vectors(200, 100)  # creation of the location and time vectors for q4
 
 plt.figure()
-plt.plot(x, t)
+plt.plot(t, x)
 plt.title("x as function of t")
 plt.ylabel("x[m]")
 plt.xlabel("t[sec]")
 plt.figure()
-plt.plot(y, t)
+plt.plot(t, y)
 plt.title("y as function of t")
-plt.ylabel("xy[m]")
+plt.ylabel("y[m]")
 plt.xlabel("t[sec]")
 
 plt.figure()
