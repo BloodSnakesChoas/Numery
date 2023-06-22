@@ -116,7 +116,7 @@ fig.update_layout(
 # Show the graph
 fig.show()
 
-r_teo = np.linspace(0, 1 - 1e-15, 1000)
+r_teo = np.linspace(0, (1 - 1e-15), 1000)
 
 
 def σ(r):
@@ -154,35 +154,37 @@ for i in range(5, 21):  # Creating graphs made from 4 to 19 rings at size dr
     plt.title(f"Charge distribution σ for {i - 1} rings vs theoretical graph")
     plt.ylabel("σ [C/m^2]")
     plt.xlabel("r [m]")
+    plt.ylim(-1e-16, 0)
 plt.show()
 
 
-'this part was making a charge discretion based on disks and not rings'
-# r_lst = []
-# electrons_density_lst = []
-# num_of_electrons_temp = 0
-# for i in range(5, 21):  # creating graphs with 5 to 20 points - 5 to 20 discs of charge density
-#     section_points = np.linspace(0, 1, i)
-#     r_lst = []
-#     electrons_density_lst = []
-#     num_of_electrons_temp = 0
-#     for k in range(i):
-#         for electron in electrons:
-#             if np.linalg.norm(electron.location) < section_points[k]:
-#                 # Counting how meny electrons are in each disk
-#                 num_of_electrons_temp += 1
-#         if num_of_electrons_temp == 0:
-#             electrons_density_lst.append(0)
-#         else:
-#             electrons_density_lst.append((num_of_electrons_temp * e_q) / (2 * math.pi * (section_points[k])))
-#             # Calculating of charge density for each disk
-#         num_of_electrons_temp = 0
-#         r_lst.append(section_points[k])
-#
-#     plt.figure()
-#     plt.plot(r_lst, electrons_density_lst, 'b-', label='Lines')
-#     plt.scatter(r_lst, electrons_density_lst, c='red', label='Points')
-#     plt.title(f"Charge distribution σ cut to {i} points")
-#     plt.ylabel("σ [C/m^2]")
-#     plt.xlabel("r [m]")
-# plt.show()
+'this part was making a charge discretion based on disks and not rings, we choose not to use those graphs at the end'
+r_lst = []
+electrons_density_lst = []
+num_of_electrons_temp = 0
+for i in range(5, 21):  # creating graphs with 5 to 20 points - 5 to 20 discs of charge density
+    section_points = np.linspace(0, 1, i)
+    r_lst = []
+    electrons_density_lst = []
+    num_of_electrons_temp = 0
+    for k in range(i):
+        for electron in electrons:
+            if np.linalg.norm(electron.location) < section_points[k]:
+                # Counting how meny electrons are in each disk
+                num_of_electrons_temp += 1
+        if num_of_electrons_temp == 0:
+            electrons_density_lst.append(0)
+        else:
+            electrons_density_lst.append((num_of_electrons_temp * e_q) / (2 * math.pi * (section_points[k])))
+            # Calculating of charge density for each disk
+        num_of_electrons_temp = 0
+        r_lst.append(section_points[k])
+
+    plt.figure()
+    plt.plot(r_teo, σ(r_teo), c='red', linewidth=2)
+    plt.scatter(r_lst, electrons_density_lst, c='red', label='Points')
+    plt.title(f"Charge distribution σ cut to {i} points")
+    plt.ylabel("σ [C/m^2]")
+    plt.xlabel("r [m]")
+    plt.ylim(-1e-16, 0)
+plt.show()
